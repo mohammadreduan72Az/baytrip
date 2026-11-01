@@ -567,13 +567,13 @@ async function renderPins(main) {
 async function renderLive(main) {
   const res = await sb.from('vessel_locations').select('*').order('updated_at', { ascending: false });
   if (!ok(res)) return;
-  main.innerHTML = head('লাইভ সি ট্রাক', 'ড্রাইভার মোড থেকে আসা শেষ লোকেশন।', '<button class="btn ghost" id="refresh">রিফ্রেশ</button>') + `
+  main.innerHTML = head('লাইভ সি ট্রাক', 'ড্রাইভার মোড আর সি ট্রাকে থাকা যাত্রীদের ফোন থেকে আসা শেষ লোকেশন।', '<button class="btn ghost" id="refresh">রিফ্রেশ</button>') + `
     <div class="card"><div class="rows">
       ${res.data.map((v) => {
         const fresh = Date.now() - new Date(v.updated_at) < 5 * 60000;
         const live = v.on_trip && fresh;
         return `<div class="row" style="grid-template-columns:1fr auto auto auto">
-          <div><b>${esc(v.vessel_id)}</b><br><small style="color:var(--muted)">${v.direction ? DIR[v.direction] ?? esc(v.direction) : ''} · ${ago(v.updated_at)}</small></div>
+          <div><b>${v.vessel_id === 'crowd' ? 'যাত্রীদের লোকেশন থেকে' : esc(v.vessel_id)}</b><br><small style="color:var(--muted)">${v.direction ? DIR[v.direction] ?? esc(v.direction) : ''} · ${ago(v.updated_at)}</small></div>
           <span class="pill ${live ? 'ok' : 'mute'}">${live ? 'চলছে' : v.on_trip ? 'সংকেত নেই' : 'থেমে আছে'}</span>
           ${v.lat != null ? `<a class="btn sm ghost" target="_blank" rel="noopener" href="https://www.openstreetmap.org/?mlat=${v.lat}&mlon=${v.lng}#map=15/${v.lat}/${v.lng}">ম্যাপ</a>` : '<span></span>'}
           <button class="btn sm danger" data-act="del" data-id="${esc(v.vessel_id)}" title="তালিকা থেকে সরান">✕</button>
