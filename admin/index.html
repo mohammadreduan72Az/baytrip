@@ -41,6 +41,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 a { color: var(--sea); }
 .hidden { display: none !important; }
 svg.i { width: 18px; height: 18px; flex: none; }
+svg .f { fill: currentColor; fill-opacity: .2; stroke: none; }
 
 /* ───── লগইন ───── */
 .login { min-height: 100vh; display: grid; grid-template-columns: 1.1fr 1fr; }
@@ -94,10 +95,18 @@ textarea { min-height: 96px; resize: vertical; }
 .brand b { font-size: 19px; display: block; line-height: 1.1; }
 .brand small { opacity: .65; font-size: 12px; }
 .side .group { font-size: 11.5px; letter-spacing: .06em; opacity: .5; padding: 14px 12px 6px; }
-.nav { border: 0; background: transparent; color: rgba(255,255,255,.74); text-align: left; padding: 10px 12px; border-radius: 12px; cursor: pointer;
-  display: flex; gap: 11px; align-items: center; transition: background .15s, color .15s; width: 100%; }
-.nav:hover { background: rgba(255,255,255,.07); color: #fff; }
-.nav.on { background: rgba(255,255,255,.13); color: #fff; font-weight: 600; box-shadow: inset 3px 0 0 var(--accent); }
+.nav { border: 0; background: transparent; color: rgba(255,255,255,.76); text-align: left; padding: 6px 8px; border-radius: 14px; cursor: pointer;
+  display: flex; gap: 12px; align-items: center; transition: background .15s, color .15s; width: 100%; }
+.nav .ni { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; flex: none; color: var(--c, #fff);
+  background: color-mix(in srgb, var(--c, #fff) 16%, transparent); border: 1px solid color-mix(in srgb, var(--c, #fff) 22%, transparent);
+  transition: background .15s, transform .15s; }
+.nav .ni svg { width: 19px; height: 19px; }
+.nav:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav:hover .ni { background: color-mix(in srgb, var(--c, #fff) 26%, transparent); transform: translateY(-1px); }
+.nav.on { background: rgba(255,255,255,.1); color: #fff; font-weight: 600; }
+.nav.on .ni { background: linear-gradient(140deg, color-mix(in srgb, var(--c) 70%, #fff), var(--c)); border-color: transparent; color: #fff;
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--c) 45%, transparent); }
+.nav.on .ni svg .f { fill-opacity: .32; }
 .nav .count { margin-left: auto; font-size: 12px; background: rgba(255,255,255,.14); padding: 1px 8px; border-radius: 99px; }
 .side .grow { flex: 1; min-height: 16px; }
 .me { display: flex; gap: 10px; align-items: center; padding: 10px; border-radius: 14px; background: rgba(255,255,255,.06); margin-top: 8px; }
@@ -124,7 +133,7 @@ main { padding: 8px 32px 64px; max-width: 1480px; width: 100%; }
 /* ───── কার্ড ───── */
 .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; box-shadow: var(--shadow); min-width: 0; }
 .card-h { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-.card-h .ic { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--sea-soft); color: var(--sea-ink); flex: none; }
+.card-h .ic { width: 40px; height: 40px; border-radius: 13px; border: 1px solid color-mix(in srgb, currentColor 14%, transparent); display: grid; place-items: center; background: var(--sea-soft); color: var(--sea-ink); flex: none; }
 .card-h .ic.accent { background: var(--accent-soft); color: var(--accent); }
 .card-h .ic.ok { background: var(--ok-soft); color: var(--ok); }
 .card-h .ic.warn { background: var(--warn-soft); color: var(--warn); }
@@ -149,7 +158,7 @@ main { padding: 8px 32px 64px; max-width: 1480px; width: 100%; }
 
 /* KPI */
 .kpi { display: flex; gap: 14px; align-items: center; }
-.kpi .ic { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; flex: none; }
+.kpi .ic { width: 48px; height: 48px; border-radius: 15px; border: 1px solid color-mix(in srgb, currentColor 14%, transparent); display: grid; place-items: center; flex: none; }
 .kpi .ic svg { width: 22px; height: 22px; }
 .kpi b { font-size: 28px; line-height: 1.1; display: block; }
 .kpi span { color: var(--muted); font-size: 13px; }
@@ -359,35 +368,36 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 
 /* ───── আইকন ───── */
 const P = {
-  home: '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
-  trips: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="15.5" cy="16" r="2.5"/>',
-  fares: '<rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 12h.01M18 12h.01"/>',
-  notices: '<path d="M4 10v4a1 1 0 0 0 1 1h2l5 4V5L7 9H5a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/>',
-  ads: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 15l5-4 4 3 3-2 6 4"/><circle cx="16" cy="9" r="1.5"/>',
-  tides: '<path d="M2 15c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M2 19c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/><path d="M12 3v7M9 7l3 3 3-3"/>',
-  pins: '<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.5"/>',
-  live: '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
-  out: '<path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H3"/>',
-  menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
-  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
-  moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
+  // দুই রঙের নিজস্ব আইকন: হালকা ভরাট অংশ (.f) + রেখা — সমুদ্র/সি ট্রাকের ধাঁচে
+  home: '<rect class="f" x="3" y="3" width="8" height="10" rx="2"/><rect class="f" x="13" y="13" width="8" height="8" rx="2"/><rect x="3" y="3" width="8" height="10" rx="2"/><rect x="13" y="3" width="8" height="6" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/><rect x="3" y="15" width="8" height="6" rx="2"/>',
+  trips: '<path class="f" d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 3v4M16 3v4"/><path d="M7.5 15.5h9l-1.3 2.5H8.8z"/><path d="M9.5 15.5V13.5h4.5v2"/>',
+  fares: '<path class="f" d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5V9a3 3 0 0 0 0 6v1.5a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 16.5V15a3 3 0 0 0 0-6z"/><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5V9a3 3 0 0 0 0 6v1.5a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 16.5V15a3 3 0 0 0 0-6z"/><path d="M15.5 5.5v2M15.5 11v2M15.5 16.5v2" stroke-dasharray="0"/><path d="M6.8 10h5M6.8 13.5h3.2"/>',
+  notices: '<path class="f" d="M4 10v4a1 1 0 0 0 1 1h2l6.5 4.5V4.5L7 9H5a1 1 0 0 0-1 1z"/><path d="M4 10v4a1 1 0 0 0 1 1h2l6.5 4.5V4.5L7 9H5a1 1 0 0 0-1 1z"/><path d="M17 9.2a4 4 0 0 1 0 5.6M19.6 6.6a7.6 7.6 0 0 1 0 10.8"/><path d="M7 15l1.2 4.5h2.3"/>',
+  ads: '<rect class="f" x="3" y="3.5" width="18" height="11.5" rx="2"/><rect x="3" y="3.5" width="18" height="11.5" rx="2"/><path d="M6.5 11.5l3-3 2.2 2.2 2.8-3 3 3"/><circle cx="8" cy="7" r=".9"/><path d="M8 15v5.5M16 15v5.5M5.5 20.5h13"/>',
+  tides: '<path class="f" d="M16.5 2.5a5 5 0 1 0 5 6 4 4 0 0 1-5-6z"/><path d="M16.5 2.5a5 5 0 1 0 5 6 4 4 0 0 1-5-6z"/><path d="M2 15.5c1.7 0 1.7-1.5 3.3-1.5s1.7 1.5 3.4 1.5 1.6-1.5 3.3-1.5 1.7 1.5 3.3 1.5 1.7-1.5 3.4-1.5 1.6 1.5 3.3 1.5"/><path d="M2 20c1.7 0 1.7-1.5 3.3-1.5S7 20 8.7 20s1.6-1.5 3.3-1.5 1.7 1.5 3.3 1.5 1.7-1.5 3.4-1.5S20.3 20 22 20"/>',
+  pins: '<path class="f" d="M12 2.8l7.5 3v5.4c0 4.7-3.2 8.6-7.5 10-4.3-1.4-7.5-5.3-7.5-10V5.8z"/><path d="M12 2.8l7.5 3v5.4c0 4.7-3.2 8.6-7.5 10-4.3-1.4-7.5-5.3-7.5-10V5.8z"/><circle cx="12" cy="10.5" r="2.1"/><path d="M12 12.6V16"/>',
+  live: '<path class="f" d="M12 21.5s-6.2-5.5-6.2-10.4a6.2 6.2 0 0 1 12.4 0c0 4.9-6.2 10.4-6.2 10.4z"/><path d="M12 21.5s-6.2-5.5-6.2-10.4a6.2 6.2 0 0 1 12.4 0c0 4.9-6.2 10.4-6.2 10.4z"/><circle cx="12" cy="11" r="2.3"/><path d="M3.2 8.2A10 10 0 0 1 5.4 4.6M20.8 8.2a10 10 0 0 0-2.2-3.6"/>',
+  out: '<path class="f" d="M4 5a2 2 0 0 1 2-2h7v18H6a2 2 0 0 1-2-2z"/><path d="M13 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7"/><path d="M16 8l4 4-4 4M20 12H9.5"/>',
+  menu: '<path d="M4 6.5h16M4 12h11M4 17.5h16"/>',
+  sun: '<circle class="f" cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  moon: '<path class="f" d="M20.5 13.5A8.5 8.5 0 1 1 10.5 3.5a6.8 6.8 0 0 0 10 10z"/><path d="M20.5 13.5A8.5 8.5 0 1 1 10.5 3.5a6.8 6.8 0 0 0 10 10z"/><path d="M16.5 3.5v3M15 5h3"/>',
   plus: '<path d="M12 5v14M5 12h14"/>',
-  save: '<path d="M5 12l4 4L19 6"/>',
-  trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
-  boat: '<path d="M3 15l2 5h14l2-5H3z"/><path d="M6 15V9h12v6M9 9V6h6v3"/><path d="M12 3v3"/>',
+  save: '<path d="M5 12.5l4.2 4.2L19 7"/>',
+  trash: '<path class="f" d="M6 7h12l-1 12.5a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 7 19.5z"/><path d="M4 7h16M9.5 7V4.5h5V7M6 7l1 12.5a1.5 1.5 0 0 0 1.5 1.5h7a1.5 1.5 0 0 0 1.5-1.5L18 7M10 11v6M14 11v6"/>',
+  boat: '<path class="f" d="M3 13.5h18l-2.4 5h-13.2z"/><path d="M3 13.5h18l-2.4 5h-13.2z"/><path d="M6 13.5V9.5h12v4M9 9.5v-3h6v3M12 3.5v3"/><path d="M8.5 11.5h1M11.5 11.5h1M14.5 11.5h1"/><path d="M2 21.5c1.5 0 1.5-1 3-1s1.5 1 3 1 1.5-1 3-1 1.5 1 3 1 1.5-1 3-1 1.5 1 3 1"/>',
   arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
-  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  clock: '<circle class="f" cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/>',
   up: '<path d="M12 19V5M6 11l6-6 6 6"/>',
   down: '<path d="M12 5v14M6 13l6 6 6-6"/>',
-  eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
-  copy: '<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>',
-  upload: '<path d="M12 16V4M7 9l5-5 5 5M4 20h16"/>',
+  eye: '<path class="f" d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  copy: '<rect class="f" x="9" y="9" width="11" height="11" rx="2"/><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>',
+  upload: '<path class="f" d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3z"/><path d="M12 15V4M7 9l5-5 5 5M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>',
   refresh: '<path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/>',
-  info: '<circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/>',
-  check: '<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',
-  alert: '<path d="M12 3l10 18H2L12 3z"/><path d="M12 10v4M12 17h.01"/>',
-  ban: '<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>',
-  map: '<path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/>',
+  info: '<circle class="f" cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/>',
+  check: '<circle class="f" cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',
+  alert: '<path class="f" d="M12 3l10 18H2z"/><path d="M12 3l10 18H2z"/><path d="M12 10v4M12 17h.01"/>',
+  ban: '<circle class="f" cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>',
+  map: '<path class="f" d="M9 4l6 2v14l-6-2z"/><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/>',
   ext: '<path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/>',
 };
 const ic = (k, cls = 'i') => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${P[k]}</svg>`;
@@ -480,14 +490,14 @@ $('#theme').onclick = () => {
 
 /* ───── পাতা ও নেভিগেশন ───── */
 const PAGES = {
-  home: { name: 'সারসংক্ষেপ', sub: 'অ্যাপে এখন যা চলছে, এক নজরে', render: renderHome, group: 'মূল' },
-  trips: { name: 'সময়সূচি', sub: 'ট্রিপ যোগ, সময় বদল বা বন্ধ করুন', render: renderTrips, group: 'অ্যাপের তথ্য' },
-  fares: { name: 'ভাড়া', sub: 'সব ঘাটের ভাড়া', render: renderFares },
-  notices: { name: 'নোটিশ', sub: 'বন্ধ, দেরি বা অন্য ঘোষণা', render: renderNotices },
-  ads: { name: 'বিজ্ঞাপন', sub: 'হোম পেজের ৩টা বিজ্ঞাপনের জায়গা', render: renderAds },
-  tides: { name: 'জোয়ার-ভাটা', sub: 'WorldTides থেকে নিজে আসে; দরকারে নিজে বসান', render: renderTides },
-  live: { name: 'লাইভ সি ট্রাক', sub: 'ড্রাইভার মোড আর যাত্রীদের ফোন থেকে আসা অবস্থান', render: renderLive, group: 'চলাচল' },
-  pins: { name: 'ড্রাইভার PIN', sub: 'কে লাইভ লোকেশন পাঠাতে পারবে', render: renderPins },
+  home: { c: '#5CC8F0', name: 'সারসংক্ষেপ', sub: 'অ্যাপে এখন যা চলছে, এক নজরে', render: renderHome, group: 'মূল' },
+  trips: { c: '#FF8A5C', name: 'সময়সূচি', sub: 'ট্রিপ যোগ, সময় বদল বা বন্ধ করুন', render: renderTrips, group: 'অ্যাপের তথ্য' },
+  fares: { c: '#4BD08E', name: 'ভাড়া', sub: 'সব ঘাটের ভাড়া', render: renderFares },
+  notices: { c: '#F6B93B', name: 'নোটিশ', sub: 'বন্ধ, দেরি বা অন্য ঘোষণা', render: renderNotices },
+  ads: { c: '#F27BA8', name: 'বিজ্ঞাপন', sub: 'হোম পেজের ৩টা বিজ্ঞাপনের জায়গা', render: renderAds },
+  tides: { c: '#7FA6FF', name: 'জোয়ার-ভাটা', sub: 'WorldTides থেকে নিজে আসে; দরকারে নিজে বসান', render: renderTides },
+  live: { c: '#3DD6C4', name: 'লাইভ সি ট্রাক', sub: 'ড্রাইভার মোড আর যাত্রীদের ফোন থেকে আসা অবস্থান', render: renderLive, group: 'চলাচল' },
+  pins: { c: '#B28BFF', name: 'ড্রাইভার PIN', sub: 'কে লাইভ লোকেশন পাঠাতে পারবে', render: renderPins },
 };
 let page = 'home';
 let me = null;
@@ -498,7 +508,7 @@ function buildNav() {
   let html = `<div class="brand"><img src="../icon.png" alt=""><div><b>BayTrip</b><small>অ্যাডমিন প্যানেল</small></div></div>`;
   for (const [k, p] of Object.entries(PAGES)) {
     if (p.group) html += `<div class="group">${p.group}</div>`;
-    html += `<button class="nav${k === page ? ' on' : ''}" data-go="${k}">${ic(k)}<span>${p.name}</span></button>`;
+    html += `<button class="nav${k === page ? ' on' : ''}" data-go="${k}" style="--c:${p.c}"><span class="ni">${ic(k)}</span><span>${p.name}</span></button>`;
   }
   const initial = (me.email || 'A')[0].toUpperCase();
   html += `<div class="grow"></div>
