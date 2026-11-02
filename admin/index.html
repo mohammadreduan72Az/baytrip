@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>BayTrip অ্যাডমিন</title>
+<title>Bay Trip অ্যাডমিন</title>
 <link rel="icon" href="../icon.png">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
@@ -308,7 +308,7 @@ main { padding: 8px 32px 64px; max-width: 1480px; width: 100%; }
 <!-- লগইন -->
 <section class="login hidden" id="login">
   <div class="art">
-    <div class="brand"><img src="../icon.png" alt="">BayTrip</div>
+    <div class="brand"><img src="../icon.png" alt="">Bay Trip</div>
     <div style="position:relative">
       <h2>সি ট্রাকের সব তথ্য এক জায়গা থেকে চালান</h2>
       <p>এখানে যা বদলাবেন, অ্যাপ খুললেই যাত্রীরা সঙ্গে সঙ্গে দেখবেন।</p>
@@ -505,7 +505,7 @@ let liveMap = null;
 
 function buildNav() {
   const side = $('#side');
-  let html = `<div class="brand"><img src="../icon.png" alt=""><div><b>BayTrip</b><small>অ্যাডমিন প্যানেল</small></div></div>`;
+  let html = `<div class="brand"><img src="../icon.png" alt=""><div><b>Bay Trip</b><small>অ্যাডমিন প্যানেল</small></div></div>`;
   for (const [k, p] of Object.entries(PAGES)) {
     if (p.group) html += `<div class="group">${p.group}</div>`;
     html += `<button class="nav${k === page ? ' on' : ''}" data-go="${k}" style="--c:${p.c}"><span class="ni">${ic(k)}</span><span>${p.name}</span></button>`;
